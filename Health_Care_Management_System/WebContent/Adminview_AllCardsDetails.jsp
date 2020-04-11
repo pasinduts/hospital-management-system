@@ -96,7 +96,7 @@
 								<td>a</td>
 								<td>a</td>
 								<td>a</td>
-								<<td>a</td>
+								<td>a</td>
 								<td>a</td>
 								
 								<td><a href="Delete_BillerServlet?"> delete 
@@ -134,39 +134,7 @@
 
 	<!-- Menu Toggle Script -->
 	<script>
-		$("#menu-toggle").click(function(e) {
-			e.preventDefault();
-			$("#wrapper").toggleClass("active");
-		});
-
-		$(document).ready(function() {
-
-			$('#sidebarCollapse').on('click', function() {
-				$('#sidebar').toggleClass('active');
-			});
-
-		});
-
-		var dropdown = document.getElementsByClassName("dropdown-btn");
-		var i;
-
-		for (i = 0; i < dropdown.length; i++) {
-			dropdown[i].addEventListener("click", function() {
-				this.classList.toggle("active");
-				var dropdownContent = this.nextElementSibling;
-				if (dropdownContent.style.display === "block") {
-					dropdownContent.style.display = "none";
-				} else {
-					dropdownContent.style.display = "block";
-				}
-			});
-		}
 		
-		window.history.forward();
-        function noBack()
-        {
-            window.history.forward();
-        }
 	</script>
 
 

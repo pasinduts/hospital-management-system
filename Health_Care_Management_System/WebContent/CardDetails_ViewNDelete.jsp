@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 
-
+<%@page import="bill_package.BillDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.util.List"%>
-
+<%@page import="bill_package.BillDao"%>
+<%@page import="bill_package.CardClass"%>
 
 <html lang="en">
-
 
 <head>
 
@@ -53,21 +53,15 @@
 				<div class="container">
 
 					<!-- /#Type Body Here -->
-<br>
-<br>
-<br>
+					<br> <br> <br>
 					<h3>Your Card Details</h3>
 
 
-<br>
-					
-				
-
-					<br>
+					<br> <br>
 					<table class="table">
 						<thead class="thead-dark">
 							<tr>
-							<th scope="col">card no</th>
+								<th scope="col">card no</th>
 								<th scope="col">card name</th>
 								<th scope="col">card type</th>
 								<th scope="col">Edit</th>
@@ -76,32 +70,30 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>a</td>
-								<td>a</td>
-								<td>a</td>
-								<td>
-									<a href='CardDetails_Update.jsp'>edit 
-									<img src="images/edit.png" alt="" border=3 height=20 width=20 style="float: center; margin-right: 0.5em">
-									</a>
-								</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><a href='CardDetails_Update.jsp'>edit <img
+										src="images/edit.png" alt="" border=3 height=20 width=20
+										style="float: center; margin-right: 0.5em">
+								</a></td>
 
-								<td>
-									<a href='Delete_CardServlet'>delete
-										<img src="images/delete.png" alt="" border=3 height=20 width=20 style="float: center; margin-right: 0.5em">
-									</a>
-								</td>
-								
+								<td><a href='Delete_CardServlet'>delete <img
+										src="images/delete.png" alt="" border=3 height=20 width=20
+										style="float: center; margin-right: 0.5em">
+								</a></td>
+
 							</tr>
 							<tr>
-
-
-							
 						</tbody>
 					</table>
- 					
+
 				</div>
-				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<jsp:include page="_footer.jsp"></jsp:include>
+				<br> <br> <br> <br> <br> <br> <br>
+				<br> <br> <br> <br> <br> <br> <br>
+				<br> <br> <br> <br> <br> <br> <br>
+				<br> <br> <br>
+				<jsp:include page="_footer.jsp"></jsp:include>
 			</div>
 
 
@@ -148,12 +140,11 @@
 				}
 			});
 		}
-		
+
 		window.history.forward();
-        function noBack()
-        {
-            window.history.forward();
-        }
+		function noBack() {
+			window.history.forward();
+		}
 	</script>
 
 

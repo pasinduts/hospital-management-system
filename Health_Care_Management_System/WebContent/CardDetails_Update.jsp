@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 
-
+<%@page import="bill_package.BillDao"%>
 
 <%@page import="java.sql.Connection"%>
-
+<%@page import="connections.DBConnection"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.util.List"%>
-
+<%@page import="bill_package.CardClass"%>
 
 
 <html lang="en">
-
 
 
 <head>
@@ -29,7 +28,8 @@
 
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -58,83 +58,94 @@
 
 					<!-- /#Type Body Here -->
 
+
 					<br>
-					
-<br><br>	
-<h3>Update your Card Details</h3>
+					<br>
+					<h3>Update your Card Details</h3>
 
-					
-					
-					<br><br>	
-					
-					
+
+
+					<br>
+					<br>
+
+
 					<form action="Update_CardServlet" method="post">
-					
-					
-				
-						
-						
+
+
+
+
+
 						<div class="row">
 							<div class="col-25">
-								<p><b><b>Card no</b></b></p>
+								<p>
+									<b><b>Card no</b></b>
+								</p>
 							</div>
 							<div class="col-65">
 								<div class="input-group mb-3">
-									
+
 									<div class="input-group-prepend">
-										<input type="text" value="" name="CardNo" required placeholder="">
+										<input type="text" value="" name="CardNo" required
+											placeholder="">
 									</div>
-									
+
 								</div>
 							</div>
-						</div>
-						
-						
-						<div class="row">
-							<div class="col-25">
-								<p><b><b>card name</b></b></p>
-							</div>
-							<div class="col-65">
-								<div class="input-group mb-3">
-									
-									<div class="input-group-prepend">
-										<input type="text" value="" name="CardName" required placeholder="">
-									</div>
-									
-								</div>
-							</div>
-						</div>
-						
-						
-						<div class="row">
-							<div class="col-25">
-								<p><b><b>card type</b></b></p>
-							</div>
-							<div class="col-65">
-								<div class="input-group mb-3">
-									
-									<div class="input-group-prepend">
-										<input type="text" value="" name="CardType" required placeholder="">
-									</div>
-								
-								</div>
-							</div>
-						</div>
-						
-						
-						
-				
-						<div class="row">
-							
-								<input type="submit" class="btn btn-secondary" value="Update ">
-							
 						</div>
 
-<br><br>	
+
+						<div class="row">
+							<div class="col-25">
+								<p>
+									<b><b>card name</b></b>
+								</p>
+							</div>
+							<div class="col-65">
+								<div class="input-group mb-3">
+
+									<div class="input-group-prepend">
+										<input type="text" value="" name="CardName" required
+											placeholder="">
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-25">
+								<p>
+									<b><b>card type</b></b>
+								</p>
+							</div>
+							<div class="col-65">
+								<div class="input-group mb-3">
+
+									<div class="input-group-prepend">
+										<input type="text" value="" name="CardType" required
+											placeholder="">
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+
+
+						<div class="row">
+
+							<input type="submit" class="btn btn-secondary" value="Update ">
+
+						</div>
+
+						<br>
+						<br>
 					</form>
 
 				</div>
-<jsp:include page="_footer.jsp"></jsp:include>
+				<jsp:include page="_footer.jsp"></jsp:include>
 			</div>
 
 		</div>
@@ -146,7 +157,7 @@
 
 	<!-- /#page-content-wrapper -->
 
-	
+
 
 
 	<script src="vendor/jquery/jquery.min.js"></script>
@@ -154,11 +165,10 @@
 
 	<!-- Menu Toggle Script -->
 	<script>
-	
-	$(function () {
-		  $('[data-toggle="popover"]').popover()
+		$(function() {
+			$('[data-toggle="popover"]').popover()
 		});
-	
+
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
