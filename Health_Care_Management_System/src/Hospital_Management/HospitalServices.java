@@ -16,7 +16,7 @@ import Hospital_Management.hospitalDetails;
 public class HospitalServices {
 
 	hospitalDetails hospital = new hospitalDetails();
-
+//
 	// readdata
 	@GET
 	@Path("/")
