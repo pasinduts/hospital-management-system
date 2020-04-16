@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.jsoup.Jsoup;
@@ -23,15 +24,26 @@ public class CardService {
 	// -------read card details--------------------------
 
 	@GET
-	@Path("/")
+	@Path("/readcard")
 	@Produces(MediaType.TEXT_HTML)
-	public String readACards() {
+	public String readCards() {
 		return billd.readcardDetail();
 	}
 
+
+	// -------read one card details--------------------------
+
+	@GET
+	@Path("/readAcard")
+	@Produces(MediaType.TEXT_HTML)
+	public String readACard() {
+		return billd.readACard();
+	}
+
+	
 	// ------inserting card details----------------------
 	@POST
-	@Path("/")
+	@Path("/addcard")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertCardDetails(@FormParam("id") String id, @FormParam("customerID") String customerid,
@@ -44,7 +56,7 @@ public class CardService {
 	// -------update card details---------------------------
 
 	@PUT
-	@Path("/")
+	@Path("/updatecard")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updateCardDetails(String card) {
@@ -66,7 +78,7 @@ public class CardService {
 	// -------delete card details---------------------------
 
 	@DELETE
-	@Path("/")
+	@Path("/deletecard")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteItem(String itemCard) {
@@ -80,5 +92,10 @@ public class CardService {
 		return output;
 
 	}
+	
+	
+	
+	
+	
 
 }
