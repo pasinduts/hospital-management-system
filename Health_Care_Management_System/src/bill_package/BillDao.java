@@ -145,10 +145,9 @@ public class BillDao {
 				return "Error while connecting to the database for reading.";
 			}
 			
-			output = "<table border=\"1\">"
-					
+			output = "	<table border=\"1\">" 
 					+ "<tr>" 
-					+ "<th></th>" 
+					+ "<th>No</th>" 
 					+ "<th>Customer Id</th>" 
 					+ "<th>Card Name</th>"
 					+ "<th>Card Type</th>" 
@@ -209,81 +208,80 @@ public class BillDao {
 	
 	
 	
-	public String readOneCardDetail() {
-		String output = "";
+	
+	// --------------READ one card---------------------------------------------------
 
-		try {
-			Connection con = connect();
+		public String readACard() {
+			String output = "";
 
-			if (con == null) {
-				return "Error while connecting to the database for reading.";
-			}
-			
-			output = "<table class=\"table\">"
-					+ "<thead class=\"thead-dark\">"
-					+ "<tr>" 
-					+ "<th></th>" 
-					+ "<th>Customer Id</th>" 
-					+ "<th>Card Name</th>"
-					+ "<th>Card Type</th>" 
-					+ "<th>Card Number</th>" 
-					+ "<th>Update</th>" 
-					+ "<th>Remove</th>" 
-					+ "</tr>"
-					+ "</thead>";
+			try {
+				Connection con = connect();
 
-			String query = "select * from cardtable where id=?";
-					
-			// where id=?
-			PreparedStatement sts = con.prepareStatement(query);
-
-			ResultSet rss = sts.executeQuery();
-
-			if (rss.next()) {
-
-				String id = Integer.toString(rss.getInt("id"));
-				String cid = Integer.toString(rss.getInt("customerID"));
-				String cardNo = Integer.toString(rss.getInt("cardNo"));
-				String cardName = rss.getString("cardName");
-				String cardType = rss.getString("cardType");
-
-				System.out.println("card name : " + cardName);
-
-				output += "<tr>";
-				output += "<td>" + id + "</td>";
-				output += "<td>" + cid + "</td>";
-				output += "<td>" + cardNo + "</td>";
-				output += "<td>" + cardName + "</td>";
-				output += "<td>" + cardType + "</td>";
-
-				// buttons
-				output += "<td> "
-							+ "<input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
-						+ "</td>"
-						+ "<td>"
-					+	 "<form method=\"post\" action=\"CardDetails_Add.jsp\">"
-							+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
-							+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + id + "\">"
-							+"<img src=\"images/delete.png\" alt=\"\" border=3 height=23 width=23 style=\"float: center; margin-right: 0.5em\">"
-							+ "</form>"
-						+ "</td>"
+				if (con == null) {
+					return "Error while connecting to the database for reading.";
+				}
+				
+				output = "	<table border=\"1\">" 
+						+ "<tr>" 
+						+ "<th>No</th>" 
+						+ "<th>Customer Id</th>" 
+						+ "<th>Card Name</th>"
+						+ "<th>Card Type</th>" 
+						+ "<th>Card Number</th>" 
+						+ "<th>Update</th>" 
+						+ "<th>Remove</th>" 
 						+ "</tr>";
+
+				String query = "select * from cardtable where customerID=?";
+				// where id=?
+				PreparedStatement sts = con.prepareStatement(query);
+
+				ResultSet rss = sts.executeQuery();
+
+				while (rss.next()) {
+
+					String id = Integer.toString(rss.getInt("id"));
+					String cid = Integer.toString(rss.getInt("customerID"));
+					String cardNo = Integer.toString(rss.getInt("cardNo"));
+					String cardName = rss.getString("cardName");
+					String cardType = rss.getString("cardType");
+
+					System.out.println("card name : " + cardName);
+
+					output += "<tr>";
+					output += "<td>" + id + "</td>";
+					output += "<td>" + cid + "</td>";
+					output += "<td>" + cardNo + "</td>";
+					output += "<td>" + cardName + "</td>";
+					output += "<td>" + cardType + "</td>";
+
+					// buttons
+					output += "<td> "
+								+ "<input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
+							+ "</td>"
+							+ "<td>"
+						+	 "<form method=\"post\" action=\"CardDetails_Add.jsp\">"
+								+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
+								+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + id + "\">"
+								+ "</form>"
+							+ "</td>"
+							+ "</tr>";
+				}
+
+				con.close();
+
+				// Complete the html table
+				output += "</table>";
+			} catch (Exception e) {
+				output = "Error while reading the items.";
+				System.err.println(e.getMessage());
+
 			}
 
-			con.close();
-
-			// Complete the html table
-			output += "</table>";
-		} catch (Exception e) {
-			output = "Error while reading the items.";
-			System.err.println(e.getMessage());
+			return output;
 
 		}
-
-		return output;
-
-	}
-	
+		
 	
 	
 	
