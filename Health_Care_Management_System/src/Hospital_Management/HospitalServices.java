@@ -3,6 +3,8 @@ package Hospital_Management;
 //For REST Service
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import Hospital_Management.*;
 //For JSON
 import com.google.gson.*;
 //For XML
@@ -16,8 +18,10 @@ import Hospital_Management.hospitalDetails;
 public class HospitalServices {
 
 	hospitalDetails hospital = new hospitalDetails();
-//
-	// readdata
+	AddingDoctor doctor = new AddingDoctor();
+	
+	
+	// readdata hospital
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
@@ -26,7 +30,7 @@ public class HospitalServices {
 		return hospital.readHospital();
 	}
 	
-	// Inserting data
+	// Inserting data hospital
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -44,7 +48,7 @@ public class HospitalServices {
 	}
 
 	
-	//updating data
+	//updating data hospital
 	
 		@PUT
 		@Path("/")
@@ -67,7 +71,7 @@ public class HospitalServices {
 		return output;
 		}
 		
-		//delete(remove)
+		//delete(remove) hospital
 		@DELETE
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_XML)
@@ -83,5 +87,54 @@ public class HospitalServices {
 		return output;
 		}
 	
+		
+		
+		//read doctor details to add 
+		@GET
+		@Path("/addDoctor")
+		@Produces(MediaType.TEXT_HTML)
+		public String readDoctorForAdding() {
+
+			return doctor.readDoctorForAdding();
+		}
+		
+		// read doctor details which added
+			@GET
+			@Path("/readDoctor")
+			@Produces(MediaType.TEXT_HTML)
+			public String readAddedDoctor() {
+
+				return doctor.readAddedDoctor();
+			}
+		
+			
+		// Inserting data doctor for hospital
+			@POST
+			@Path("/readDoctor")
+			@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+			@Produces(MediaType.TEXT_PLAIN)
+		public String insertDoctorHospital(@FormParam("Hid") String Hid,
+			 @FormParam("Mid") String Mid)
+			{
+			 String output = doctor.insertDoctorHospital(Hid,Mid);
+			return output;
+			}
+
+		//delete(remove) doctor
+			@DELETE
+			@Path("/readDoctor")
+			@Consumes(MediaType.APPLICATION_XML)
+			@Produces(MediaType.TEXT_PLAIN)
+		public String deleteAddedDoctor(String DoctorData)
+			{
+			//Convert the input string to an XML document
+			 Document doc = Jsoup.parse(DoctorData, "", Parser.xmlParser());
+
+			
+			 String Hid = doc.select("Hid").text();
+			 String Mid = doc.select("Mid").text();
+			 String output = doctor.deleteAddedDoctor(Hid,Mid);
+			return output;
+			}
 	
 }
