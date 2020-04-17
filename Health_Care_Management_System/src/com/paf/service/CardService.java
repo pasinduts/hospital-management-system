@@ -1,4 +1,5 @@
-package bill_package;
+package com.paf.service;
+//package bill_package;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,6 +16,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.paf.controller.BillDao;
 
 @Path("/Cards")
 public class CardService {

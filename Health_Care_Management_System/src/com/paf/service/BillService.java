@@ -1,4 +1,5 @@
-package bill_package;
+package com.paf.service;
+//package bill_package;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -11,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
+
+import com.paf.controller.BillDao;
 
 @Path("/Bills")
 public class BillService {

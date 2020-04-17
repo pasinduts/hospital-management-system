@@ -1,26 +1,29 @@
-package bill_package;
+package com.paf.controller;
+//package bill_package;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.paf.util.DBConnection;
+
 public class BillDao {
 
-	public Connection connect() {
-		Connection con = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcare", "root", "root");
-
-			System.out.println("Successfully connected");
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return con;
-	}
+//	public Connection connect() {
+//		Connection con = null;
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcare", "root", "root");
+//
+//			System.out.println("Successfully connected");
+//		}
+//
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return con;
+//	}
 
 //--------------------insert card---------------------------------------------------------
 	public String insertCard(String id, String custNo, String cardnumber, String cardname, String cardtype) {
@@ -28,8 +31,9 @@ public class BillDao {
 		String output = "";
 
 		try {
-			Connection con = connect();
-
+			//Connection con = connect();
+			  Connection con = DBConnection.getConnection(); 
+			
 			if (con == null) {
 				return "Error while connecting to the database";
 			}
@@ -66,7 +70,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-			Connection con = connect();
+		//	Connection con = connect();
+			Connection con = DBConnection.getConnection(); 
 
 			if (con == null) {
 				return "Error while connecting to the database for updating.";
@@ -104,7 +109,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-			Connection con = connect();
+			//Connection con = connect();
+			Connection con = DBConnection.getConnection(); 
 
 			if (con == null) {
 				return "Error while connecting to the database for deleting.";
@@ -139,7 +145,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-			Connection con = connect();
+			//Connection con = connect();
+			Connection con = DBConnection.getConnection(); 
 
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
@@ -215,7 +222,8 @@ public class BillDao {
 			String output = "";
 
 			try {
-				Connection con = connect();
+				//Connection con = connect();
+				Connection con = DBConnection.getConnection(); 
 
 				if (con == null) {
 					return "Error while connecting to the database for reading.";
@@ -306,7 +314,8 @@ public class BillDao {
 //		double total = e.getBilltotal();
 
 		try {
-			Connection con = connect();
+			//Connection con = connect();
+			Connection con = DBConnection.getConnection(); 
 
 			if (con == null) {
 				return "Error while connecting to the database";
@@ -347,7 +356,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-			Connection con = connect();
+		//	Connection con = connect();
+			Connection con = DBConnection.getConnection(); 
 
 			if (con == null) {
 				return "Error while connecting to the database for deleting.";
@@ -383,7 +393,8 @@ public class BillDao {
 
 		// Add into the html table
 		try {
-			Connection con = connect();
+			//Connection con = connect();
+			Connection con = DBConnection.getConnection(); 
 
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
