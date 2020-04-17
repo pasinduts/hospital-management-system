@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.paf.model.BillClass;
+import com.paf.model.CardClass;
 import com.paf.util.DBConnection;
 
 public class BillDao {
@@ -170,13 +172,21 @@ public class BillDao {
 			ResultSet rss = sts.executeQuery();
 
 			while (rss.next()) {
-
-				String id = Integer.toString(rss.getInt("id"));
-				String cid = Integer.toString(rss.getInt("customerID"));
-				String cardNo = Integer.toString(rss.getInt("cardNo"));
-				String cardName = rss.getString("cardName");
-				String cardType = rss.getString("cardType");
-
+		
+				CardClass card = new CardClass();
+				
+				 card.setId(Integer.toString(rss.getInt("id")));
+				 card.setCustomerID(Integer.toString(rss.getInt("customerID")));
+				 card.setCardCardNo(Integer.toString(rss.getInt("cardNo")));
+				 card.setCardCardName(rss.getString("cardName"));
+				 card.setCardCardType(rss.getString("cardType"));
+				
+				 String id  = card.getId();
+				 String cid = card.getCustomerID();
+				 String cardNo = card.getCardCardNo();
+				 String cardName = card.getCardCardName();
+				 String cardType = card.getCardCardType();
+				
 				System.out.println("card name : " + cardName);
 
 				output += "<tr>";
@@ -421,15 +431,32 @@ public class BillDao {
 
 			while (rss.next()) {
 
-				String billno = Integer.toString(rss.getInt("billNo"));
-				String cusno = Integer.toString(rss.getInt("cno"));
-				String cusname = rss.getString("cname");
-				String cusemail = rss.getString("cemail");
-				String cumobile = Integer.toString(rss.getInt("cmobile"));
-				String cusnote = rss.getString("cnote");
-				String appoinmnetno = Integer.toString(rss.getInt("cappoinmnetno"));
-				String total = Double.toString(rss.getDouble("ctotal"));
+				
+				BillClass b = new BillClass();
+				
+				b.setBillNo(Integer.toString(rss.getInt("billNo")));
+				b.setCusNo(Integer.toString(rss.getInt("cno")));
+				b.setCusName(rss.getString("cname"));
+				b.setCusEmail(rss.getString("cemail"));
+				b.setCusMobile(Integer.toString(rss.getInt("cmobile")));
+				b.setNote(rss.getString("cnote"));
+				b.setAppoinmentNo(Integer.toString(rss.getInt("cappoinmnetno")));
+				b.setBilltotal(Double.toString(rss.getDouble("ctotal")));
+				
+				
 
+				String billno = b.getBillNo();
+				String cusno = b.getCusNo();
+				String cusname = b.getCusName();
+				String cusemail = b.getCusEmail();
+				String cumobile =  b.getCusMobile();
+				String cusnote =  b.getNote();
+				String appoinmnetno = b.getAppoinmentNo();
+				String total = b.getBilltotal();
+
+				
+				
+				
 				System.out.println("namee : " + cusname);
 				output += "<tr>";
 				output += "<td>" + billno + "</td>";

@@ -5,59 +5,64 @@ public class BillClass {
 
 
 	
-	public int billNumber;
-	public String billName;
-	public String billEmail;
-	public int billMobile;
-	public String billNote;
-	public int billAppoinmentNo;
-	public double billtotal;
+	public String billNo;
+	public String cusNo;
+	public String cusName;
+	public String cusEmail;
+	public String cusMobile;
+	public String Note;
+	public String AppoinmentNo;
+	public String billtotal;
 	
 	
-	public int getBillNumber() {
-		return billNumber;
+	public String getBillNo() {
+		return billNo;
 	}
-	public void setBillNumber(int billNumber) {
-		this.billNumber = billNumber;
+	public void setBillNo(String billNo) {
+		this.billNo = billNo;
 	}
-	public String getBillName() {
-		return billName;
+	public String getCusNo() {
+		return cusNo;
 	}
-	public void setBillName(String billName) {
-		this.billName = billName;
+	public void setCusNo(String cusNo) {
+		this.cusNo = cusNo;
 	}
-	public String getBillEmail() {
-		return billEmail;
+	public String getCusName() {
+		return cusName;
 	}
-	public void setBillEmail(String billEmail) {
-		this.billEmail = billEmail;
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
 	}
-	public int getBillMobile() {
-		return billMobile;
+	public String getCusEmail() {
+		return cusEmail;
 	}
-	public void setBillMobile(int billMobile) {
-		this.billMobile = billMobile;
+	public void setCusEmail(String cusEmail) {
+		this.cusEmail = cusEmail;
 	}
-	public String getBillNote() {
-		return billNote;
+	public String getCusMobile() {
+		return cusMobile;
 	}
-	public void setBillNote(String billNote) {
-		this.billNote = billNote;
+	public void setCusMobile(String cusMobile) {
+		this.cusMobile = cusMobile;
 	}
-	public int getBillAppoinmentNo() {
-		return billAppoinmentNo;
+	public String getNote() {
+		return Note;
 	}
-	public void setBillAppoinmentNo(int billAppoinmentNo) {
-		this.billAppoinmentNo = billAppoinmentNo;
+	public void setNote(String note) {
+		Note = note;
 	}
-	public double getBilltotal() {
+	public String getAppoinmentNo() {
+		return AppoinmentNo;
+	}
+	public void setAppoinmentNo(String appoinmentNo) {
+		AppoinmentNo = appoinmentNo;
+	}
+	public String getBilltotal() {
 		return billtotal;
 	}
-	public void setBilltotal(double billtotal) {
+	public void setBilltotal(String billtotal) {
 		this.billtotal = billtotal;
 	}
-	
-	
 	
 	
 	
