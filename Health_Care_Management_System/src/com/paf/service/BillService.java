@@ -14,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 
 import com.paf.controller.BillDao;
+import com.paf.model.BillClass;
 
 @Path("/Bills")
 public class BillService {
@@ -35,11 +36,28 @@ public class BillService {
 	@Path("/addbill")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertbillDetails(@FormParam("billNo") String billNo, @FormParam("cno") String cno,
-			@FormParam("cname") String cname, @FormParam("cemail") String cemail, @FormParam("cmobile") String cmobile,
-			@FormParam("cnote") String cnote, @FormParam("cappoinmnetno") String cappoinmnetno,
-			@FormParam("ctotal") String ctotal) {
-		String output = billdao.addBill(billNo, cno, cname, cemail, cmobile, cnote, cappoinmnetno, ctotal);
+	public String insertbillDetails(
+			@FormParam("billNo") String billNo,
+			@FormParam("cno") String cno,
+			@FormParam("cname") String cname, 
+			@FormParam("cemail") String cemail,
+			@FormParam("cmobile") String cmobile,
+			@FormParam("cnote") String cnote, 
+			@FormParam("cappoinmnetno") String cappoinmnetno,
+			@FormParam("ctotal") String ctotal) 
+	{
+		BillClass bb = new BillClass();
+		
+		bb.setBillNo(billNo);
+		bb.setCusNo(cno);
+		bb.setCusName(cname);
+		bb.setCusEmail(cemail);
+		bb.setCusMobile(cmobile);
+		bb.setNote(cnote);
+		bb.setAppoinmentNo(cappoinmnetno);
+		bb.setBilltotal(ctotal);
+		
+		String output = billdao.addBill(bb);
 		return output;
 	}
 

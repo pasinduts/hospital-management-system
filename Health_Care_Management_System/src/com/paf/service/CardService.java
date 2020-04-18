@@ -17,6 +17,7 @@ import org.jsoup.parser.Parser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.paf.controller.BillDao;
+import com.paf.model.CardClass;
 
 @Path("/Cards")
 public class CardService {
@@ -48,10 +49,21 @@ public class CardService {
 	@Path("/addcard")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertCardDetails(@FormParam("id") String id, @FormParam("customerID") String customerid,
-			@FormParam("cardNo") String cardNo, @FormParam("cardName") String cardName,
-			@FormParam("cardType") String cardType) {
-		String output = billd.insertCard(id, customerid, cardNo, cardName, cardType);
+	public String insertCardDetails(
+			@FormParam("id") String id, 
+			@FormParam("customerID") String customerid,
+			@FormParam("cardNo") String cardNo, 
+			@FormParam("cardName") String cardName,
+			@FormParam("cardType") String cardType)
+	{
+		CardClass cc = new CardClass();
+		cc.setId(customerid);
+		cc.setCustomerID(customerid);
+		cc.setCardCardNo(cardNo);
+		cc.setCardCardName(cardName);
+		cc.setCardCardType(cardType);
+		
+		String output = billd.insertCard(cc);
 		return output;
 	}
 

@@ -28,14 +28,20 @@ public class BillDao {
 //	}
 
 //--------------------insert card---------------------------------------------------------
-	public String insertCard(String id, String custNo, String cardnumber, String cardname, String cardtype) {
+	public String insertCard(CardClass c) {
 
 		String output = "";
 
+		String id = c.getId();
+		String cusNo = c.getCustomerID();
+		String caNo = c.getCardCardNo();
+		String caName = c.getCardCardName();
+		String caType = c.getCardCardType();
+
 		try {
-			//Connection con = connect();
-			  Connection con = DBConnection.getConnection(); 
-			
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
+
 			if (con == null) {
 				return "Error while connecting to the database";
 			}
@@ -47,11 +53,16 @@ public class BillDao {
 
 			// binding values
 			preparedStmt.setInt(1, 0);
-			preparedStmt.setInt(2, Integer.parseInt(custNo));
-			preparedStmt.setInt(3, Integer.parseInt(cardnumber));
-			preparedStmt.setString(4, cardname);
-			preparedStmt.setString(5, cardtype);
-
+			preparedStmt.setInt(2, Integer.parseInt(cusNo));
+			preparedStmt.setInt(3, Integer.parseInt(caNo));
+			preparedStmt.setString(4, caName);
+			preparedStmt.setString(5, caType);
+			
+			System.out.println(cusNo);
+			System.out.println(caNo);
+			System.out.println(caName);
+			System.out.println( caType);
+			
 			preparedStmt.execute();
 			con.close();
 
@@ -72,8 +83,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-		//	Connection con = connect();
-			Connection con = DBConnection.getConnection(); 
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
 			if (con == null) {
 				return "Error while connecting to the database for updating.";
@@ -111,8 +122,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-			//Connection con = connect();
-			Connection con = DBConnection.getConnection(); 
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
 			if (con == null) {
 				return "Error while connecting to the database for deleting.";
@@ -147,23 +158,16 @@ public class BillDao {
 		String output = "";
 
 		try {
-			//Connection con = connect();
-			Connection con = DBConnection.getConnection(); 
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
-			
-			output = "	<table border=\"1\">" 
-					+ "<tr>" 
-					+ "<th>No</th>" 
-					+ "<th>Customer Id</th>" 
-					+ "<th>Card Name</th>"
-					+ "<th>Card Type</th>" 
-					+ "<th>Card Number</th>" 
-					+ "<th>Update</th>" 
-					+ "<th>Remove</th>" 
-					+ "</tr>";
+
+			output = "	<table border=\"1\">" + "<tr>" + "<th>	No				</th>" + "<th>	Customer Id		</th>"
+					+ "<th> Card Name 		</th>" + "<th> Card Type 		</th>" + "<th> Card Number 	</th>"
+					+ "<th> Update 			</th>" + "<th> Remove 			</th>" + "</tr>";
 
 			String query = "select * from cardtable";
 			// where id=?
@@ -172,21 +176,21 @@ public class BillDao {
 			ResultSet rss = sts.executeQuery();
 
 			while (rss.next()) {
-		
+
 				CardClass card = new CardClass();
-				
-				 card.setId(Integer.toString(rss.getInt("id")));
-				 card.setCustomerID(Integer.toString(rss.getInt("customerID")));
-				 card.setCardCardNo(Integer.toString(rss.getInt("cardNo")));
-				 card.setCardCardName(rss.getString("cardName"));
-				 card.setCardCardType(rss.getString("cardType"));
-				
-				 String id  = card.getId();
-				 String cid = card.getCustomerID();
-				 String cardNo = card.getCardCardNo();
-				 String cardName = card.getCardCardName();
-				 String cardType = card.getCardCardType();
-				
+
+				card.setId(Integer.toString(rss.getInt("id")));
+				card.setCustomerID(Integer.toString(rss.getInt("customerID")));
+				card.setCardCardNo(Integer.toString(rss.getInt("cardNo")));
+				card.setCardCardName(rss.getString("cardName"));
+				card.setCardCardType(rss.getString("cardType"));
+
+				String id = card.getId();
+				String cid = card.getCustomerID();
+				String cardNo = card.getCardCardNo();
+				String cardName = card.getCardCardName();
+				String cardType = card.getCardCardType();
+
 				System.out.println("card name : " + cardName);
 
 				output += "<tr>";
@@ -198,14 +202,10 @@ public class BillDao {
 
 				// buttons
 				output += "<td> "
-							+ "<input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
-						+ "</td>"
-						+ "<td>"
-					+	 "<form method=\"post\" action=\"CardDetails_Add.jsp\">"
-							+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
-							+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + id + "\">"
-							+ "</form>"
-						+ "</td>"
+						+ "<input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
+						+ "</td>" + "<td>" + "<form method=\"post\" action=\"CardDetails_Add.jsp\">"
+						+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
+						+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + id + "\">" + "</form>" + "</td>"
 						+ "</tr>";
 			}
 
@@ -222,110 +222,88 @@ public class BillDao {
 		return output;
 
 	}
-	
-	
-	
-	
-	// --------------READ one card---------------------------------------------------
 
-		public String readACard() {
-			String output = "";
+	// --------------READ one
+	// card---------------------------------------------------
 
-			try {
-				//Connection con = connect();
-				Connection con = DBConnection.getConnection(); 
+	public String readACard() {
+		String output = "";
 
-				if (con == null) {
-					return "Error while connecting to the database for reading.";
-				}
-				
-				output = "	<table border=\"1\">" 
-						+ "<tr>" 
-						+ "<th>No</th>" 
-						+ "<th>Customer Id</th>" 
-						+ "<th>Card Name</th>"
-						+ "<th>Card Type</th>" 
-						+ "<th>Card Number</th>" 
-						+ "<th>Update</th>" 
-						+ "<th>Remove</th>" 
-						+ "</tr>";
+		try {
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
-				String query = "select * from cardtable where customerID=?";
-				// where id=?
-				PreparedStatement sts = con.prepareStatement(query);
-
-				ResultSet rss = sts.executeQuery();
-
-				while (rss.next()) {
-
-					String id = Integer.toString(rss.getInt("id"));
-					String cid = Integer.toString(rss.getInt("customerID"));
-					String cardNo = Integer.toString(rss.getInt("cardNo"));
-					String cardName = rss.getString("cardName");
-					String cardType = rss.getString("cardType");
-
-					System.out.println("card name : " + cardName);
-
-					output += "<tr>";
-					output += "<td>" + id + "</td>";
-					output += "<td>" + cid + "</td>";
-					output += "<td>" + cardNo + "</td>";
-					output += "<td>" + cardName + "</td>";
-					output += "<td>" + cardType + "</td>";
-
-					// buttons
-					output += "<td> "
-								+ "<input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
-							+ "</td>"
-							+ "<td>"
-						+	 "<form method=\"post\" action=\"CardDetails_Add.jsp\">"
-								+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
-								+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + id + "\">"
-								+ "</form>"
-							+ "</td>"
-							+ "</tr>";
-				}
-
-				con.close();
-
-				// Complete the html table
-				output += "</table>";
-			} catch (Exception e) {
-				output = "Error while reading the items.";
-				System.err.println(e.getMessage());
-
+			if (con == null) {
+				return "Error while connecting to the database for reading.";
 			}
 
-			return output;
+			output = "	<table border=\"1\">" + "<tr>" + "<th>No</th>" + "<th>Customer Id</th>" + "<th>Card Name</th>"
+					+ "<th>Card Type</th>" + "<th>Card Number</th>" + "<th>Update</th>" + "<th>Remove</th>" + "</tr>";
+
+			String query = "select * from cardtable where customerID=?";
+			// where id=?
+			PreparedStatement sts = con.prepareStatement(query);
+
+			ResultSet rss = sts.executeQuery();
+
+			while (rss.next()) {
+
+				String id = Integer.toString(rss.getInt("id"));
+				String cid = Integer.toString(rss.getInt("customerID"));
+				String cardNo = Integer.toString(rss.getInt("cardNo"));
+				String cardName = rss.getString("cardName");
+				String cardType = rss.getString("cardType");
+
+				System.out.println("card name : " + cardName);
+
+				output += "<tr>";
+				output += "<td>" + id + "</td>";
+				output += "<td>" + cid + "</td>";
+				output += "<td>" + cardNo + "</td>";
+				output += "<td>" + cardName + "</td>";
+				output += "<td>" + cardType + "</td>";
+
+				// buttons
+				output += "<td> "
+						+ "<input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
+						+ "</td>" + "<td>" + "<form method=\"post\" action=\"CardDetails_Add.jsp\">"
+						+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
+						+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + id + "\">" + "</form>" + "</td>"
+						+ "</tr>";
+			}
+
+			con.close();
+
+			// Complete the html table
+			output += "</table>";
+		} catch (Exception e) {
+			output = "Error while reading the items.";
+			System.err.println(e.getMessage());
 
 		}
-		
-	
-	
-	
-	
-	
-	
-	
+
+		return output;
+
+	}
 
 	// ----------add bill--------------------------------------------------------
 
 	// public String addBill(BillClass e) {
-	public String addBill(String billNo, String cno, String cname, String cemail, String cmobile, String cnote,
-			String cappoinmnetno, String ctotal) {
+	public String addBill(BillClass b) {
 		String output = "";
 
-//		int No = e.getBillNumber();
-//		String Name = e.getBillName();
-//		String email = e.getBillEmail();
-//		int mob = e.getBillMobile();
-//		String note = e.getBillNote();
-//		int apoinmentno = e.getBillAppoinmentNo();
-//		double total = e.getBilltotal();
+		String billNo = b.getBillNo();
+		String cno = b.getCusNo();
+		String cname = b.getCusName();
+		String cemail = b.getCusEmail();
+		String cmobile = b.getCusMobile();
+		String cnote = b.getNote();
+		String cappoinmnetno = b.getAppoinmentNo();
+		String ctotal = b.getBilltotal();
 
 		try {
-			//Connection con = connect();
-			Connection con = DBConnection.getConnection(); 
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
 			if (con == null) {
 				return "Error while connecting to the database";
@@ -366,8 +344,8 @@ public class BillDao {
 		String output = "";
 
 		try {
-		//	Connection con = connect();
-			Connection con = DBConnection.getConnection(); 
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
 			if (con == null) {
 				return "Error while connecting to the database for deleting.";
@@ -403,25 +381,16 @@ public class BillDao {
 
 		// Add into the html table
 		try {
-			//Connection con = connect();
-			Connection con = DBConnection.getConnection(); 
+			// Connection con = connect();
+			Connection con = DBConnection.getConnection();
 
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
 
-			output = "	<table border=\"1\">" 
-						+ "<tr>" 
-						+ "<th>Bill NO</th>"
-						+ "<th> number</th>"
-						+ "<th> name</th>"
-						+ "<th> email</th>" 
-						+ "<th> mobile</th>"
-						+ "<th>Note</th>" 
-						+ "<th>appoinment no</th>"
-						+ "<th>total</th>"
-						+ "<th>Remove</th>" 
-						+ "</tr>";
+			output = "	<table border=\"1\">" + "<tr>" + "<th>Bill NO</th>" + "<th> number</th>" + "<th> name</th>"
+					+ "<th> email</th>" + "<th> mobile</th>" + "<th>Note</th>" + "<th>appoinment no</th>"
+					+ "<th>total</th>" + "<th>Remove</th>" + "</tr>";
 
 			String query = "select * from billtable";
 
@@ -431,9 +400,8 @@ public class BillDao {
 
 			while (rss.next()) {
 
-				
 				BillClass b = new BillClass();
-				
+
 				b.setBillNo(Integer.toString(rss.getInt("billNo")));
 				b.setCusNo(Integer.toString(rss.getInt("cno")));
 				b.setCusName(rss.getString("cname"));
@@ -442,21 +410,16 @@ public class BillDao {
 				b.setNote(rss.getString("cnote"));
 				b.setAppoinmentNo(Integer.toString(rss.getInt("cappoinmnetno")));
 				b.setBilltotal(Double.toString(rss.getDouble("ctotal")));
-				
-				
 
 				String billno = b.getBillNo();
 				String cusno = b.getCusNo();
 				String cusname = b.getCusName();
 				String cusemail = b.getCusEmail();
-				String cumobile =  b.getCusMobile();
-				String cusnote =  b.getNote();
+				String cumobile = b.getCusMobile();
+				String cusnote = b.getNote();
 				String appoinmnetno = b.getAppoinmentNo();
 				String total = b.getBilltotal();
 
-				
-				
-				
 				System.out.println("namee : " + cusname);
 				output += "<tr>";
 				output += "<td>" + billno + "</td>";
@@ -469,12 +432,9 @@ public class BillDao {
 				output += "<td>" + total + "</td>";
 
 				// buttons
-				output += "<td>" 
-						+ "<form method=\"post\" action=\"Adminview_AllCardsDetails.jsp\">"
+				output += "<td>" + "<form method=\"post\" action=\"Adminview_AllCardsDetails.jsp\">"
 						+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\">"
-						+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + billno + "\">"
-						+ "</form>" 
-						+ "</td>" 
+						+ "<input name=\"itemID\" type=\"hidden\" " + " value=\"" + billno + "\">" + "</form>" + "</td>"
 						+ "</tr>";
 			}
 
