@@ -2,7 +2,6 @@ package com.paf.controller;
 //package bill_package;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
