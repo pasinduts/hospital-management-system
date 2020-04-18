@@ -1,6 +1,6 @@
-package com;
+package com.paf.service;
 
-import model.Appointment;
+
 
 import java.sql.Date;
 import java.util.List;
@@ -12,6 +12,8 @@ import javax.xml.crypto.Data;
 
 //For JSON
 import com.google.gson.*;
+import com.paf.controller.Appointment;
+
 //For XML
 import org.jsoup.*;
 import org.jsoup.parser.*;

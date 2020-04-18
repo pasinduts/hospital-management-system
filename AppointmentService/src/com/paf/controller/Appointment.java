@@ -1,4 +1,4 @@
-package model;
+package com.paf.controller;
 
 import java.sql.Connection;
 import java.sql.Date;

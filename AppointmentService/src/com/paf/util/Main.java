@@ -1,4 +1,6 @@
-package model;
+package com.paf.util;
+
+import com.paf.controller.Appointment;
 
 public class Main {
 
