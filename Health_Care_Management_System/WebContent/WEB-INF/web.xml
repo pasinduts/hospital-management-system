@@ -13,19 +13,10 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
-		<url-pattern>/BillService/*</url-pattern>
+		<url-pattern>/PatientService/*</url-pattern>
 	</servlet-mapping>
 
 
-	<servlet-mapping>
-		<servlet-name>Jersey Web Application</servlet-name>
-		<url-pattern>/HospitalData/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Jersey Web Application</servlet-name>
-		<url-pattern>/CardService/*</url-pattern>
-	</servlet-mapping>
 	
 	
 	

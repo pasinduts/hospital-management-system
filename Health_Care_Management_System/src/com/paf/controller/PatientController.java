@@ -15,7 +15,7 @@ public class PatientController {
 
 //******************************************DATA INSERT*************************************************************
 	
-	public String insertItem(String id, String name, String gender, String bg, String contact) {
+	public String insertPatient(String id, String name, String gender, String bg, String contact) {
 		String output = "";
 		try {
 			connection = DBConnection.getConnection();
@@ -54,7 +54,7 @@ public class PatientController {
 //******************************************Read DATA*************************************************************
 	
 	
-	public String readItems()
+	public String readPatient()
 	 {
 	 String output = "";
 	 try
@@ -108,7 +108,7 @@ public class PatientController {
 //******************************************UPDATE DATA*************************************************************
 	
 	
-	public String updateItem(String id, String name, String gender, String bg, String contact)
+	public String updatePatient(String id, String name, String gender, String bg, String contact)
 	 {
 	 String output = "";
 	 try
@@ -139,7 +139,11 @@ public class PatientController {
 	 return output;
 	 }
 
-	public String deleteItem(String PID) {
+
+//******************************************DELETE Patient*************************************************************
+	
+	
+	public String deletePatient(String PID) {
 		String output = "";
 		try {
 			connection = DBConnection.getConnection();

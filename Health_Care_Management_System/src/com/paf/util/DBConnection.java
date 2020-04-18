@@ -10,11 +10,11 @@ public class DBConnection {
 	static Connection conn = null;
 
     public static Connection getConnection() throws SQLException {
-        if (conn != null) {
-            return conn;
-        }
+//        if (conn != null) {
+//            return conn;
+//        }
 
-        String database = "ITPM";
+        String database = "hms";
         String Username = "root";
         String password = "";
         return getConnection(database, Username, password);
