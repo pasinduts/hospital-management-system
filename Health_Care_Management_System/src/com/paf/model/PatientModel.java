@@ -2,18 +2,16 @@ package com.paf.model;
 
 public class PatientModel {
 
-	private String PID;
+	private int PID;
 	private String Pname;
 	private String Gender;
 	private int Age;
 	private String Blood_group;
 	private String Pcontact;
-	
-	
-	public String getPID() {
+	public int getPID() {
 		return PID;
 	}
-	public void setPID(String pID) {
+	public void setPID(int pID) {
 		PID = pID;
 	}
 	public String getPname() {
@@ -46,6 +44,9 @@ public class PatientModel {
 	public void setPcontact(String pcontact) {
 		Pcontact = pcontact;
 	}
+	
+	
+	
 	
 	
 }

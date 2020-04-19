@@ -1,52 +1,60 @@
 package com.paf.controller;
 
+//import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
+import java.util.ArrayList;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import com.paf.model.PatientModel;
 import com.paf.util.DBConnection;
+import java.util.List;
 
 public class PatientController {
 
 	private static Connection connection;
 	private static PreparedStatement ps;
 	private static ResultSet rs;
+	
 
 //******************************************DATA INSERT*************************************************************
 	
-	public String insertPatient(String id, String name, String gender, String bg, String contact) {
+	public String AddPatient(PatientModel Patient) {
 		String output = "";
 		try {
 			connection = DBConnection.getConnection();
+			 if (connection == null)
+			 {return "Error while connecting to the database for inserting."; } 
+			
+			ps = connection.prepareStatement(
+					"INSERT INTO  Patient(PID,Pname,Gender,Age,Blood_group,Pcontact) "
+							+ "	VALUES (?,?,?,?,?,?)");
 
-			if (connection == null)
+			ps.setInt(1, 0);
+			ps.setString(2, Patient.getPname());
+			ps.setString(3, Patient.getGender());
+			ps.setInt(4, Patient.getAge());
+			ps.setString(5, Patient.getBlood_group());
+			ps.setString(6, Patient.getPcontact());
+			
 
-			{
-				return "Error while connecting to the database for inserting.";
-			}
-			// create a prepared statement
-			String query = " insert into Patient('PID','Pname','Gender','Age','Blood_group','Pcontact')"
-					+ " values (?, ?, ?, ?, ?)";
-			PreparedStatement preparedStmt = connection.prepareStatement(query);
+			ps.execute();
+			 connection.close();
+			 output = "Inserted successfully"; 
 
-			// binding values
-			preparedStmt.setString(1, id);
-			preparedStmt.setString(2, name);
-			preparedStmt.setString(3, gender);
-			preparedStmt.setInt(1, 0);
-			preparedStmt.setString(5, bg);
-			preparedStmt.setString(5, contact);
-
-			// execute the statement
-			preparedStmt.execute();
-			connection.close();
-			output = "Inserted successfully";
-		} catch (Exception e) {
-			output = "Error while inserting the item.";
-			System.err.println(e.getMessage());
 		}
-		return output;
+		 catch (Exception e)
+		 {
+		 output = "Error while inserting the item.";
+		 System.err.println(e.getMessage());
+		 }
+		 return output; 
+
+		
 	}
 
 
@@ -54,90 +62,75 @@ public class PatientController {
 //******************************************Read DATA*************************************************************
 	
 	
-	public String readPatient()
-	 {
-	 String output = "";
-	 try
-	 {
-		 connection = DBConnection.getConnection();
-	 
-	 if (connection == null)
-	 	{return "Error while connecting to the database for reading."; }
-	 // Prepare the html table to be displayed
-	 
-	 output = "<table border=\"1\"><tr><th>Patient ID</th><th>Name</th><th>Gender</th><th>Age</th><th>Blood Group</th><th>Contact Number</th><th>Update</th><th>Remove</th></tr>";
-	 String query = "select * from Patient";
-	 Statement stmt = connection.createStatement();
-	 ResultSet rs = stmt.executeQuery(query);
-	 // iterate through the rows in the result set
-	 while (rs.next())
-	 {
-	 String patientID = rs.getString("PID");
-	 String patientname = rs.getString("Pname");
-	 String patientgender = rs.getString("Gender");
-	 String patientage = Integer.toString(rs.getInt("Age"));
-	 String patientbg = rs.getString("Blood_group");
-	 String patientcontact = rs.getString("Pcontact");
-	 
-	 // Add into the html table
-	 output += "<tr><td>" + patientID + "</td>";
-	 output += "<td>" + patientname + "</td>";
-	 output += "<td>" + patientgender + "</td>";
-	 output += "<td>" + patientage + "</td>";
-	 output += "<td>" + patientbg + "</td>";
-	 output += "<td>" + patientcontact + "</td>";
-	 
-	 // buttons
-	 output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>" + "<td><form method=\"post\" action=\"items.jsp\">" + "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-	 + "<input name=\"PID\" type=\"hidden\" value=\"" + patientID + "\">" + "</form></td></tr>";
-	 }
-	 connection.close();
-	 // Complete the html table
-	 output += "</table>";
-	 }
-	 catch (Exception e)
-	 {
-	 output = "Error while reading the Patient.";
-	 System.err.println(e.getMessage());
-	 }
-	 return output;
-	 }
+	public List<PatientModel> readPatient() {
+		List<PatientModel> patients = new ArrayList<>();
+		try {
+			connection = DBConnection.getConnection();
+			if (connection == null) {
+				System.err.println("connecting failed.");
+			}
+			// Prepare the html table to be displayed
+			
+
+			Statement stmt = connection.createStatement();
+			rs = stmt.executeQuery("select * from Patient");
+			
+
+			// iterate through the rows in the result set
+			while (rs.next()) {
+				PatientModel ptnt = new PatientModel();
+				ptnt.setPID(rs.getInt("PID"));
+				ptnt.setPname(rs.getString("Pname"));
+				ptnt.setGender(rs.getString("Gender"));
+				ptnt.setAge(rs.getInt("Age"));
+				ptnt.setBlood_group(rs.getString("Blood_group"));
+				ptnt.setPcontact(rs.getString("Pcontact"));
+
+				patients.add(ptnt);
+			}
+			connection.close();
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return patients;
+	}
 
 	
 	
 //******************************************UPDATE DATA*************************************************************
 	
 	
-	public String updatePatient(String id, String name, String gender, String bg, String contact)
-	 {
-	 String output = "";
-	 try
-	 {
-		 connection = DBConnection.getConnection();
-	 if (connection == null)
-	 {return "Error while connecting to the database for updating."; }
-	 // create a prepared statement
-	 String query = "UPDATE Patient SET patientID=?,patientname=?,patientgender=?,patientage=?,patientbg=?,patientcontact=?	 WHERE itemID=?";
-	 PreparedStatement preparedStmt = connection.prepareStatement(query);
-	 // binding values
-		preparedStmt.setString(1, id);
-		preparedStmt.setString(2, name);
-		preparedStmt.setString(3, gender);
-		preparedStmt.setInt(1, 0);
-		preparedStmt.setString(5, bg);
-		preparedStmt.setString(5, contact);
-	 // execute the statement
-	 preparedStmt.execute();
-	 connection.close();
-	 output = "Updated successfully";
-	 }
-	 catch (Exception e)
-	 {
-	 output = "Error while updating the Patient.";
-	 System.err.println(e.getMessage());
-	 }
-	 return output;
-	 }
+	public String updatePatient(PatientModel Patient) {
+		String output = "";
+		try {
+			connection = DBConnection.getConnection();
+			if (connection == null) {
+				return "Error while connecting to the database for updating.";
+			}
+			// create a prepared statement
+			ps = connection.prepareStatement(
+					"UPDATE Patient SET Pname=?,Gender=?,Age=?,Blood_group=?,Pcontact=? WHERE PID=?");
+
+			// binding values
+			ps.setInt(1, 0);
+			ps.setString(2, Patient.getPname());
+			ps.setString(3, Patient.getGender());
+			ps.setInt(4, Patient.getAge());
+			ps.setString(5, Patient.getBlood_group());
+			ps.setString(6, Patient.getPcontact());
+			
+			// execute the statement
+			ps.execute();
+			connection.close();
+			output = "Updated successfully";
+		} catch (Exception e) {
+			output = "Error while updating the item.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
 
 
 //******************************************DELETE Patient*************************************************************
@@ -151,16 +144,17 @@ public class PatientController {
 				return "Error while connecting to the database for deleting.";
 			}
 			// create a prepared statement
-			String query = "delete from items where itemID=?";
-			PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+			connection = DBConnection.getConnection();
+			ps = connection.prepareStatement("delete from Patient where PID=?");
 			// binding values
-			preparedStmt.setInt(1, Integer.parseInt(PID));
+			ps.setInt(1, Integer.parseInt(PID));
 			// execute the statement
-			preparedStmt.execute();
+			ps.execute();
 			connection.close();
 			output = "Deleted successfully";
 		} catch (Exception e) {
-			output = "Error while deleting the item.";
+			output = "Error while deleting the item. -"+ e.getMessage();
 			System.err.println(e.getMessage());
 		}
 		return output;
