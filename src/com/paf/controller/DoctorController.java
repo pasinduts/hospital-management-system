@@ -19,7 +19,7 @@ public class DoctorController {
 	private static Connection connection;
 	private static PreparedStatement ps;
 	private static ResultSet rs;
-
+//add
 	public String AddDoctor(Doctor doctor) {
 		String output = "";
 		try {
@@ -52,7 +52,7 @@ public class DoctorController {
 
 		
 	}
-
+//read
 	public List<Doctor> readDoctors() {
 		List<Doctor> doctors = new ArrayList<>();
 		try {
@@ -85,7 +85,7 @@ public class DoctorController {
 		}
 		return doctors;
 	}
-
+//update
 	public String updatedoctor(Doctor doctor) {
 		String output = "";
 		try {
@@ -113,7 +113,7 @@ public class DoctorController {
 		}
 		return output;
 	}
-
+//delete
 	public String deleteDoctor(String Did) {
 		String output = "";
 		try {
