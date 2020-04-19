@@ -13,7 +13,7 @@ public class DBConnection {
 //	            return conn;
 //	        }
 
-	        String database = "doctor";
+	        String database = "healthcare";
 	        String Username = "root";
 	        String password = "";
 	        return getConnection(database, Username, password);
