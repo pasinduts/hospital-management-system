@@ -39,8 +39,7 @@ public class AddingDoctor {
 				String Dmail = rs.getString("Dmail");
 				String Specialization = rs.getString("Specialization");
 				String Dcontact = rs.getString("Dcontact");
-				String Username = rs.getString("Username");
-				String password = rs.getString("password");
+				
 				// Add into the html table
 
 				output += "<tr><td>" + Dname + "</td>";
