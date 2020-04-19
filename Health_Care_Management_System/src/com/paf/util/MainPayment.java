@@ -14,8 +14,8 @@ public class MainPayment {
 		//DBConnection con = new DBConnection();
 		//con.getConnection();
 		
-		BillDao b = new BillDao();
-		b.readAllBills();
+	BillDao b = new BillDao();
+		//b.readAllBills();
 
 	}
 
